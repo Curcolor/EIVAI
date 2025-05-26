@@ -1,0 +1,501 @@
+{% extends "base.html" %}
+
+{% block title %}Identificación de Herramientas Quirúrgicas{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h3 text-primary">
+                <i class="fas fa-camera me-2"></i>
+                Identificación de Herramientas Quirúrgicas
+            </h1>
+            <div class="badge bg-success fs-6 system-active">
+                <i class="fas fa-heartbeat me-1"></i>
+                Sistema Activo
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Herramienta de identificación principal -->
+<div class="row mb-4">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-upload me-2"></i>
+                    Cargar y Analizar Imagen
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="upload-area border-2 border-dashed border-primary rounded p-4 text-center mb-3" id="upload-area">
+                            <i class="fas fa-cloud-upload-alt fa-3x text-primary mb-3"></i>
+                            <h5>Cargar Imagen de Herramienta</h5>
+                            <p class="text-muted">Arrastra una imagen aquí o haz clic para seleccionar</p>
+                            <input type="file" id="tool-image" accept="image/*" class="d-none">
+                            <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('tool-image').click()">
+                                Seleccionar Imagen
+                            </button>
+                        </div>
+                        <div class="preview-container d-none" id="preview-container">
+                            <img id="image-preview" class="img-fluid rounded shadow-sm" style="max-height: 300px;">
+                            <button type="button" class="btn btn-sm btn-danger mt-2" onclick="clearImage()">
+                                <i class="fas fa-times"></i> Limpiar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="identification-results" id="identification-results">
+                            <div class="text-center text-muted">
+                                <i class="fas fa-search fa-2x mb-3"></i>
+                                <p>Carga una imagen para comenzar la identificación</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-primary btn-lg w-100" id="identify-btn" disabled>
+                            <i class="fas fa-search me-2"></i>
+                            Identificar Herramienta
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Panel de información lateral -->
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm mb-3">
+            <div class="card-header bg-info text-white">
+                <h6 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Información del Sistema
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <strong>Versión:</strong> <span class="text-muted">v2.1.0</span>
+                </div>
+                <div class="mb-3">
+                    <strong>Última actualización:</strong> <span class="text-muted">26/05/2025</span>
+                </div>
+                <div class="mb-3">
+                    <strong>Estado del servidor:</strong> 
+                    <span class="badge bg-success">Conectado</span>
+                </div>
+                <div class="mb-3">
+                    <strong>Modelos disponibles:</strong> 
+                    <span class="text-muted">15</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card border-0 shadow-sm mb-3">
+            <div class="card-header bg-warning text-dark">
+                <h6 class="mb-0">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    Consejos de Uso
+                </h6>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled small">
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Usa imágenes con buena iluminación
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Enfoca completamente la herramienta
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Evita fondos muy complejos
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Resolución mínima: 300x300px
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-secondary text-white">
+                <h6 class="mb-0">
+                    <i class="fas fa-chart-bar me-2"></i>
+                    Estadísticas Rápidas
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="small">Identificaciones hoy:</span>
+                    <strong class="text-primary">42</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="small">Precisión promedio:</span>
+                    <strong class="text-success">95.3%</strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span class="small">Tiempo promedio:</span>
+                    <strong class="text-info">2.1s</strong>
+                </div>
+                <hr class="my-3">
+                <a href="/dashboard" class="btn btn-outline-primary btn-sm w-100">
+                    <i class="fas fa-tachometer-alt me-2"></i>
+                    Ver Dashboard Completo
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Resultados recientes -->
+<div class="row">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="fas fa-history me-2"></i>
+                    Identificaciones Recientes
+                </h5>
+                <button class="btn btn-sm btn-outline-light" onclick="refreshHistory()">
+                    <i class="fas fa-sync-alt"></i> Actualizar
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="history-table">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Hora</th>
+                                <th>Herramienta Identificada</th>
+                                <th>Confianza</th>
+                                <th>Tiempo</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>14:32:15</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-primary rounded me-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                            <i class="fas fa-scalpel text-white"></i>
+                                        </div>
+                                        <div>
+                                            <strong>Bisturí #15</strong>
+                                            <br>
+                                            <small class="text-muted">Instrumental de corte</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge bg-success">98.7%</span></td>
+                                <td>2.1s</td>
+                                <td><span class="badge bg-success">Exitoso</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary" onclick="viewDetails(1)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>14:28:42</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-success rounded me-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                            <i class="fas fa-hand-scissors text-white"></i>
+                                        </div>
+                                        <div>
+                                            <strong>Pinzas Kelly</strong>
+                                            <br>
+                                            <small class="text-muted">Instrumental de sujeción</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge bg-success">95.3%</span></td>
+                                <td>1.8s</td>
+                                <td><span class="badge bg-success">Exitoso</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary" onclick="viewDetails(2)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>14:25:18</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-warning rounded me-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                            <i class="fas fa-cut text-white"></i>
+                                        </div>
+                                        <div>
+                                            <strong>Tijeras Mayo</strong>
+                                            <br>
+                                            <small class="text-muted">Instrumental de corte</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge bg-warning">87.2%</span></td>
+                                <td>3.2s</td>
+                                <td><span class="badge bg-warning">Verificar</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary" onclick="viewDetails(3)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para detalles de identificación -->
+<div class="modal fade" id="detailsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detalles de Identificación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Contenido dinámico -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Exportar Reporte</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+:root {
+    --color-azul-profundo: #1B365D;
+    --color-verde-quirurgico: #2F7E79;
+    --color-gris-acero: #BFCAD3;
+    --color-cian: #1BCDB0;
+}
+
+.upload-area {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.upload-area:hover {
+    background-color: rgba(13, 110, 253, 0.05);
+    border-color: var(--color-verde-quirurgico) !important;
+}
+
+.upload-area.dragover {
+    background-color: rgba(13, 110, 253, 0.1);
+    border-color: var(--color-cian) !important;
+}
+
+.system-active {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+.identification-results {
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stats-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-azul-profundo), var(--color-verde-quirurgico));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    color: white;
+}
+
+.card {
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.table th {
+    border-top: none;
+    font-weight: 600;
+    color: var(--color-azul-profundo);
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const uploadArea = document.getElementById('upload-area');
+    const fileInput = document.getElementById('tool-image');
+    const previewContainer = document.getElementById('preview-container');
+    const imagePreview = document.getElementById('image-preview');
+    const identifyBtn = document.getElementById('identify-btn');
+    const results = document.getElementById('identification-results');
+
+    // Drag and drop functionality
+    uploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            handleFileSelect(files[0]);
+        }
+    });
+
+    uploadArea.addEventListener('click', function() {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', function(e) {
+        if (e.target.files.length > 0) {
+            handleFileSelect(e.target.files[0]);
+        }
+    });
+
+    function handleFileSelect(file) {
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+                uploadArea.classList.add('d-none');
+                previewContainer.classList.remove('d-none');
+                identifyBtn.disabled = false;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    // Identify button functionality
+    identifyBtn.addEventListener('click', function() {
+        simulateIdentification();
+    });
+
+    function simulateIdentification() {
+        identifyBtn.disabled = true;
+        identifyBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Procesando...';
+        
+        results.innerHTML = `
+            <div class="text-center">
+                <div class="spinner-border text-primary mb-3" role="status"></div>
+                <p class="text-muted">Analizando imagen con IA...</p>
+            </div>
+        `;
+
+        setTimeout(() => {
+            const mockResults = [
+                { name: 'Bisturí #15', confidence: 96.7, category: 'Instrumental de corte' },
+                { name: 'Pinzas Kelly', confidence: 89.3, category: 'Instrumental de sujeción' },
+                { name: 'Tijeras Mayo', confidence: 78.1, category: 'Instrumental de corte' }
+            ];
+
+            let resultsHTML = '<div class="identification-results-content">';
+            resultsHTML += '<h6 class="text-primary mb-3">Resultados de Identificación:</h6>';
+            
+            mockResults.forEach((result, index) => {
+                const badgeClass = result.confidence >= 90 ? 'bg-success' : result.confidence >= 80 ? 'bg-warning' : 'bg-danger';
+                resultsHTML += `
+                    <div class="result-item mb-2 p-2 border rounded ${index === 0 ? 'bg-light' : ''}">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>${result.name}</strong>
+                                <br>
+                                <small class="text-muted">${result.category}</small>
+                            </div>
+                            <span class="badge ${badgeClass}">${result.confidence}%</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            resultsHTML += '</div>';
+            results.innerHTML = resultsHTML;
+            
+            identifyBtn.disabled = false;
+            identifyBtn.innerHTML = '<i class="fas fa-search me-2"></i>Identificar Herramienta';
+        }, 2000);
+    }
+});
+
+function clearImage() {
+    document.getElementById('upload-area').classList.remove('d-none');
+    document.getElementById('preview-container').classList.add('d-none');
+    document.getElementById('identify-btn').disabled = true;
+    document.getElementById('identification-results').innerHTML = `
+        <div class="text-center text-muted">
+            <i class="fas fa-search fa-2x mb-3"></i>
+            <p>Carga una imagen para comenzar la identificación</p>
+        </div>
+    `;
+}
+
+function viewDetails(id) {
+    // Simulate modal content
+    const modalBody = document.getElementById('modal-body');
+    modalBody.innerHTML = `
+        <div class="row">
+            <div class="col-md-6">
+                <h6>Información de la Herramienta</h6>
+                <p><strong>Nombre:</strong> Bisturí #15</p>
+                <p><strong>Categoría:</strong> Instrumental de corte</p>
+                <p><strong>Confianza:</strong> 98.7%</p>
+                <p><strong>Tiempo de procesamiento:</strong> 2.1 segundos</p>
+            </div>
+            <div class="col-md-6">
+                <h6>Detalles Técnicos</h6>
+                <p><strong>Modelo usado:</strong> SurgicalAI v2.1.0</p>
+                <p><strong>Resolución imagen:</strong> 1024x768</p>
+                <p><strong>Timestamp:</strong> ${new Date().toLocaleString()}</p>
+            </div>
+        </div>
+    `;
+    
+    const modal = new bootstrap.Modal(document.getElementById('detailsModal'));
+    modal.show();
+}
+
+function refreshHistory() {
+    // Simulate refresh
+    const btn = event.target.closest('button');
+    const originalHTML = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    
+    setTimeout(() => {
+        btn.innerHTML = originalHTML;
+        // Here you would typically reload the table data
+    }, 1000);
+}
+</script>
+{% endblock %}
