@@ -17,8 +17,8 @@ settings = get_settings()
 
 # Inicialización de la aplicación FastAPI
 app = FastAPI(
-    title="DeepSeek API",
-    description="API para procesamiento de texto utilizando la API de DeepSeek",
+    title="EIVAI IA Assistant API",
+    description="API de Asistente de IA para el Sistema de Gestión de Instrumental Quirúrgico EIVAI",
     version="1.0.0",
 )
 
@@ -51,17 +51,25 @@ async def root():
     Ruta raíz que proporciona información básica del servicio.
     """
     return {
-        "servicio": "API de DeepSeek",
+        "servicio": "EIVAI IA Assistant API",
         "estado": "operativo",
         "versión": "1.0.0",
         "documentación": "/docs",
-        "descripción": "Servicio para procesamiento de texto utilizando la API de DeepSeek"
+        "descripción": "Asistente de IA para el Sistema de Gestión de Instrumental Quirúrgico EIVAI",
+        "funcionalidades": [
+            "Análisis de conteos de instrumentos",
+            "Generación de reportes quirúrgicos",
+            "Recomendaciones de procedimientos",
+            "Análisis de patrones de uso",
+            "Alertas inteligentes",
+            "Consultas en lenguaje natural sobre instrumentos"
+        ]
     }
 
 def main():
     """Punto de entrada para la ejecución de la API."""
     import uvicorn
-    print(f"Servidor DeepSeek API iniciado en {settings.API_HOST}:{settings.API_PUERTO}")
+    print(f"Servidor EIVAI IA Assistant iniciado en {settings.API_HOST}:{settings.API_PUERTO}")
     uvicorn.run("src.api.app:app", host=settings.API_HOST, port=settings.API_PUERTO)
 
 if __name__ == "__main__":
