@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Chat{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+        <div class="card shadow-lg mb-4">
+            <div class="card-header bg-primary text-white d-flex align-items-center">
+                <i class="fas fa-comments fa-lg me-2"></i>
+                <h4 class="mb-0">Chat de Soporte</h4>
+            </div>
+            <div class="card-body p-0" style="height: 480px; display: flex; flex-direction: column;">
+                <div id="chat-messages" class="chat-messages p-3 flex-grow-1" style="overflow-y: auto; background: #f8f9fa;">
+                    <div class="message received mb-2">
+                        <div class="message-content">¡Hola! ¿En qué puedo ayudarte hoy?</div>
+                    </div>
+                </div>
+                <form class="chat-input-area d-flex p-3 border-top" onsubmit="return sendMessage(event)">
+                    <input type="text" id="chat-input" class="form-control me-2" placeholder="Escribe un mensaje..." autocomplete="off" />
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+// Lógica para enviar mensajes solo en la página grande
+function sendMessage(event) {
+    event.preventDefault();
+    const input = document.getElementById('chat-input');
+    const msg = input.value.trim();
+    if (!msg) return false;
+    const messages = document.getElementById('chat-messages');
+    messages.innerHTML += `<div class='message sent'><div class='message-content'>${msg}</div></div>`;
+    input.value = '';
+    messages.scrollTop = messages.scrollHeight;
+    setTimeout(() => {
+        messages.innerHTML += `<div class='message received'><div class='message-content'>Simulación: Recibido "${msg}"</div></div>`;
+        messages.scrollTop = messages.scrollHeight;
+    }, 900);
+    return false;
+}
+</script>
+{% endblock %}
+<!-- El JS de chat ya está incluido globalmente -->

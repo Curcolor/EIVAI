@@ -40,6 +40,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Estilos personalizados del sistema -->
     <link href="/static/css/style.css" rel="stylesheet">
+    <!-- Vincula los estilos y scripts del chat -->
+    <link rel="stylesheet" href="/static/css/chat.css">
 </head>
 <body>
     <!-- 
@@ -91,6 +93,14 @@
                         <a class="nav-link" href="/contacto">
                             <i class="fas fa-envelope me-1"></i>
                             Contacto
+                        </a>
+                    </li>
+                    
+                    <!-- Enlace a chat como pestaña grande -->
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/chat' %}active{% endif %}" href="/chat">
+                            <i class="fas fa-comments me-1"></i>
+                            Chat
                         </a>
                     </li>
                     
@@ -193,10 +203,8 @@
     
     <!-- Bootstrap 5.1.3 JavaScript Bundle (incluye Popper.js) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    
     <!-- Scripts personalizados del sistema -->
     <script src="/static/js/main.js"></script>
-    
     <!-- Script para navegación activa (resaltar página actual) -->
     <script>
         /**
