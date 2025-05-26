@@ -5,42 +5,12 @@ Este directorio contiene todos los scripts SQL necesarios para crear y configura
 ## Estructura de Archivos
 
 ### Scripts Principales
-- **`00_install_all.sql`** - Script principal que ejecuta todos los componentes en orden
 - **`01_create_database.sql`** - Creación de la base de datos
 - **`02_create_tables.sql`** - Creación de todas las tablas
 - **`03_insert_initial_data.sql`** - Inserción de datos iniciales
 - **`04_stored_procedures.sql`** - Procedimientos almacenados
 - **`05_views.sql`** - Vistas del sistema
 - **`06_functions_triggers.sql`** - Funciones y triggers
-
-## Instalación
-
-### Opción 1: Instalación Completa (Recomendada)
-```sql
--- Ejecutar desde SQL Server Management Studio
-:r "00_install_all.sql"
-```
-
-### Opción 2: Instalación Paso a Paso
-```sql
--- 1. Crear base de datos
-:r "01_create_database.sql"
-
--- 2. Crear tablas
-:r "02_create_tables.sql"
-
--- 3. Insertar datos iniciales
-:r "03_insert_initial_data.sql"
-
--- 4. Crear procedimientos
-:r "04_stored_procedures.sql"
-
--- 5. Crear vistas
-:r "05_views.sql"
-
--- 6. Crear funciones y triggers
-:r "06_functions_triggers.sql"
-```
 
 ## Características del Sistema
 
