@@ -1,0 +1,213 @@
+/* 
+ * EIVAI - Estilos específicos para la página de contacto
+ * Archivo: contact.css
+ * 
+ * Descripción:
+ *   Estilos específicos para la página de contacto del sistema EIVAI.
+ *   Incluye estilos para formularios, validación y diseño responsivo.
+ *
+ * Autor: Equipo EIVAI
+ * Fecha: 2025
+ * Versión: 2.1.0
+ */
+
+/* Variables de color del tema quirúrgico */
+:root {
+    --azul-profundo: #1B365D;      /* Color principal azul médico */
+    --verde-quirurgico: #2F7E79;   /* Verde quirúrgico institucional */
+    --gris-acero: #BFCAD3;         /* Gris acero para elementos secundarios */
+    --cian: #1BCDB0;               /* Cian para acentos y destacados */
+}
+
+/* Fondo específico para la página de contacto */
+body {
+    background: linear-gradient(135deg, #f0f8ff 0%, #e6f3f8 50%, #f5fffe 100%);
+    min-height: 100vh;
+}
+
+/* Título principal */
+h1 {
+    color: var(--azul-profundo);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h1::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--azul-profundo) 0%, var(--verde-quirurgico) 100%);
+    margin: 15px auto;
+    border-radius: 2px;
+}
+
+/* Estilos para la tarjeta principal */
+.card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.98) 100%);
+    border: 1px solid rgba(27, 54, 93, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(27, 54, 93, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+/* Estilos para formularios */
+.form-label {
+    color: var(--azul-profundo);
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    border: 2px solid rgba(27, 54, 93, 0.1);
+    border-radius: 8px;
+    padding: 12px 15px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.form-control:focus {
+    border-color: var(--verde-quirurgico);
+    box-shadow: 0 0 0 0.2rem rgba(47, 126, 121, 0.25);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.form-control:valid {
+    border-color: var(--verde-quirurgico);
+}
+
+.form-control:invalid:not(:placeholder-shown) {
+    border-color: #dc3545;
+}
+
+/* Estilos para textarea */
+textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Estilos para botones */
+.btn-primary {
+    background: linear-gradient(135deg, var(--azul-profundo) 0%, var(--verde-quirurgico) 100%);
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(27, 54, 93, 0.3);
+}
+
+.btn-secondary {
+    background: rgba(191, 202, 211, 0.8);
+    border: 2px solid var(--gris-acero);
+    color: var(--azul-profundo);
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: rgba(191, 202, 211, 1);
+    transform: translateY(-2px);
+    color: var(--azul-profundo);
+}
+
+/* Información de contacto adicional */
+.contact-info {
+    background: linear-gradient(135deg, rgba(27, 54, 93, 0.05) 0%, rgba(47, 126, 121, 0.08) 100%);
+    border-radius: 12px;
+    padding: 25px;
+    border-left: 4px solid var(--verde-quirurgico);
+    margin-top: 2rem;
+}
+
+.contact-info h5 {
+    color: var(--azul-profundo);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.contact-info p {
+    margin-bottom: 10px;
+    color: #4a5568;
+}
+
+.contact-info i {
+    color: var(--verde-quirurgico);
+    margin-right: 8px;
+    width: 20px;
+}
+
+/* Estados de validación */
+.was-validated .form-control:valid {
+    border-color: var(--verde-quirurgico);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='m2.3 6.73.8-.8-.8-.8 1.2-1.2.8.8L6.6 2.4l.8.8-1.2 1.2-.8-.8-.8.8L2.3 6.73z'/%3e%3c/svg%3e");
+}
+
+.was-validated .form-control:invalid {
+    border-color: #dc3545;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath d='m5.8 4.6 1.4 1.4M7.2 7.4 5.8 6'/%3e%3c/svg%3e");
+}
+
+/* Animaciones para feedback */
+.success-message {
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(40, 167, 69, 0.05) 100%);
+    border: 1px solid rgba(40, 167, 69, 0.3);
+    color: #155724;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    display: none;
+}
+
+.error-message {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.1) 0%, rgba(220, 53, 69, 0.05) 100%);
+    border: 1px solid rgba(220, 53, 69, 0.3);
+    color: #721c24;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    display: none;
+}
+
+/* Indicador de carga */
+.loading-spinner {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 10px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1.5rem;
+    }
+    
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .contact-info {
+        padding: 20px;
+    }
+}

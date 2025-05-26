@@ -1,0 +1,265 @@
+/* 
+ * EIVAI - Estilos específicos para la página de perfil
+ * Archivo: perfil.css
+ * 
+ * Descripción:
+ *   Estilos específicos para la página de perfil de usuario del sistema EIVAI.
+ *   Incluye diseño de tarjetas de información, estadísticas y botones de acción.
+ *
+ * Autor: Equipo EIVAI
+ * Fecha: 2025
+ * Versión: 2.1.0
+ */
+
+/* Variables de color del tema quirúrgico */
+:root {
+    --azul-profundo: #1B365D;      /* Color principal azul médico */
+    --verde-quirurgico: #2F7E79;   /* Verde quirúrgico institucional */
+    --gris-acero: #BFCAD3;         /* Gris acero para elementos secundarios */
+    --cian: #1BCDB0;               /* Cian para acentos y destacados */
+}
+
+/* Fondo degradado quirúrgico para la página de perfil */
+body {
+    background: linear-gradient(135deg, var(--azul-profundo) 0%, var(--verde-quirurgico) 50%, var(--gris-acero) 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Contenedor principal del perfil */
+.profile-container {
+    padding: 40px 20px;
+    min-height: 100vh;
+}
+
+/* Tarjeta principal del perfil */
+.profile-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+}
+
+/* Header del perfil con información principal */
+.profile-header {
+    background: linear-gradient(135deg, var(--azul-profundo), var(--verde-quirurgico));
+    color: white;
+    padding: 30px;
+    text-align: center;
+    position: relative;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+}
+
+.profile-avatar i {
+    font-size: 3.5rem;
+    color: white;
+}
+
+/* Contenido del perfil */
+.profile-content {
+    padding: 30px;
+}
+
+/* Secciones de información */
+.info-section {
+    background: rgba(27, 54, 93, 0.05);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-left: 4px solid var(--verde-quirurgico);
+}
+
+.info-section h5 {
+    color: var(--azul-profundo);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+/* Elementos de información */
+.info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.info-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.info-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--verde-quirurgico), var(--azul-profundo));
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    color: white;
+    font-size: 1.1rem;
+}
+
+.info-content {
+    flex: 1;
+}
+
+.info-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 2px;
+}
+
+.info-value {
+    font-weight: 500;
+    color: #333;
+}
+
+/* Estadísticas de uso */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, rgba(47, 126, 121, 0.1), rgba(27, 54, 93, 0.1));
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(47, 126, 121, 0.2);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--azul-profundo);
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Botones de acción */
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn-profile {
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary-profile {
+    background: linear-gradient(135deg, var(--azul-profundo), var(--verde-quirurgico));
+    color: white;
+}
+
+.btn-secondary-profile {
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--azul-profundo);
+    border: 2px solid var(--azul-profundo);
+}
+
+.btn-profile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Estado de conexión */
+.connection-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.status-online {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    margin-right: 6px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+/* Navegación de vuelta */
+.back-navigation {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+}
+
+.btn-back {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 20px 10px;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .btn-profile {
+        width: 100%;
+        text-align: center;
+    }
+}
