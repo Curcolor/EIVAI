@@ -13,7 +13,7 @@
             <div class="card-body p-0" style="height: 480px; display: flex; flex-direction: column;">
                 <div id="chat-messages" class="chat-messages p-3 flex-grow-1" style="overflow-y: auto; background: #f8f9fa;">
                     <div class="message received mb-2">
-                        <div class="message-content">¡Hola! ¿En qué puedo ayudarte hoy?</div>
+                        <div class="message-content">¡Hola! ¿En qué puedo ayudarte hoy sobre instrumentación quirúrgica?</div>
                     </div>
                 </div>
                 <form class="chat-input-area d-flex p-3 border-top" onsubmit="return sendMessage(event)">
@@ -25,7 +25,41 @@
     </div>
 </div>
 <script>
-// Lógica para enviar mensajes solo en la página grande
+const respuestas = [
+    {
+        keywords: ["bisturí", "bisturi"],
+        respuesta: "El bisturí es un instrumento de corte fundamental en cirugía."
+    },
+    {
+        keywords: ["pinza", "pinzas"],
+        respuesta: "Las pinzas quirúrgicas se utilizan para sujetar, comprimir o manipular tejidos. "
+    },
+    {
+        keywords: ["esterilización", "esterilizacion"],
+        respuesta: "La esterilización es clave en la instrumentación quirúrgica."
+    },
+    {
+        keywords: ["tijera", "tijeras"],
+        respuesta: "Las tijeras quirúrgicas pueden ser de corte o disección. "
+    },
+    {
+        keywords: ["mesa", "preparación", "preparacion"],
+        respuesta: "La preparación de la mesa quirúrgica debe seguir un orden estricto para garantizar la seguridad del paciente. "
+    },
+    {
+        keywords: ["instrumental", "instrumentos"],
+        respuesta: "El instrumental quirúrgico debe manipularse con técnica aséptica. "
+    },
+    {
+        keywords: ["sutura", "suturas"],
+        respuesta: "Las suturas permiten cerrar heridas quirúrgicas. "
+    },
+    {
+        keywords: ["gracias", "ok", "listo"],
+        respuesta: "¡Con gusto! Si tienes otra consulta sobre instrumentación quirúrgica, aquí estoy para ayudarte."
+    }
+];
+
 function sendMessage(event) {
     event.preventDefault();
     const input = document.getElementById('chat-input');
@@ -35,12 +69,53 @@ function sendMessage(event) {
     messages.innerHTML += `<div class='message sent'><div class='message-content'>${msg}</div></div>`;
     input.value = '';
     messages.scrollTop = messages.scrollHeight;
+    // Buscar respuesta predeterminada
+    let respuesta = "¿Podrías especificar tu consulta sobre instrumentación quirúrgica?";
+    for (const r of respuestas) {
+        for (const k of r.keywords) {
+            if (msg.toLowerCase().includes(k)) {
+                respuesta = r.respuesta;
+                break;
+            }
+        }
+        if (respuesta !== "¿Podrías especificar tu consulta sobre instrumentación quirúrgica?") break;
+    }
     setTimeout(() => {
-        messages.innerHTML += `<div class='message received'><div class='message-content'>Simulación: Recibido "${msg}"</div></div>`;
+        messages.innerHTML += `<div class='message received'><div class='message-content'>${respuesta}</div></div>`;
         messages.scrollTop = messages.scrollHeight;
     }, 900);
     return false;
 }
 </script>
+<style>
+.message { display: flex; margin-bottom: 10px; }
+.message.received { justify-content: flex-start; }
+.message.sent { justify-content: flex-end; }
+.message.received .message-content {
+    background: var(--gris-acero);
+    color: #222;
+    align-self: flex-start;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 18px;
+    border-top-right-radius: 18px;
+    border-top-left-radius: 18px;
+}
+.message.sent .message-content {
+    background: var(--azul-profundo);
+    color: #fff;
+    align-self: flex-end;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border-top-left-radius: 18px;
+}
+.message-content {
+    padding: 10px 18px;
+    max-width: 80%;
+    font-size: 1rem;
+    box-shadow: 0 1px 4px rgba(27,54,93,0.06);
+    word-break: break-word;
+}
+</style>
 {% endblock %}
 <!-- El JS de chat ya está incluido globalmente -->
