@@ -1,0 +1,151 @@
+{
+  "Dashboard Completo (Mock)": {
+    "status": "success",
+    "data": {
+      "success": true,
+      "estadisticas_generales": {
+        "total_instrumentos": 125,
+        "instrumentos_activos": 98,
+        "instrumentos_mantenimiento": 12,
+        "procedimientos_hoy": 8,
+        "alertas_activas": 3
+      },
+      "alertas_criticas": [
+        {
+          "id": 1,
+          "tipo": "mantenimiento",
+          "mensaje": "Instrumento #45 requiere mantenimiento programado",
+          "prioridad": "alta",
+          "fecha": "2025-05-26T20:55:00"
+        },
+        {
+          "id": 2,
+          "tipo": "discrepancia",
+          "mensaje": "Conteo incompleto en quirófano 3",
+          "prioridad": "media",
+          "fecha": "2025-05-26T19:30:00"
+        }
+      ],
+      "procedimientos_activos": [
+        {
+          "id": 1,
+          "nombre": "Cirugía Cardiovascular - Sala 1",
+          "inicio": "2025-05-26T14:00:00",
+          "estado": "en_progreso",
+          "instrumentos_asignados": 15
+        },
+        {
+          "id": 2,
+          "nombre": "Laparoscopia - Sala 2",
+          "inicio": "2025-05-26T16:30:00",
+          "estado": "preparacion",
+          "instrumentos_asignados": 8
+        }
+      ],
+      "conteos_pendientes": [
+        {
+          "id": 1,
+          "procedimiento": "Cirugía Cardiovascular - Sala 1",
+          "total_instrumentos": 15,
+          "contados": 12,
+          "fecha_limite": "2025-05-26T22:00:00"
+        }
+      ],
+      "instrumentos_mantenimiento": [
+        {
+          "id": 45,
+          "nombre": "Bisturí Electrónico BE-200",
+          "ultimo_mantenimiento": "2025-04-15",
+          "proximo_mantenimiento": "2025-05-27",
+          "estado": "requiere_atencion"
+        },
+        {
+          "id": 67,
+          "nombre": "Pinzas Hemostáticas PH-150",
+          "ultimo_mantenimiento": "2025-05-01",
+          "proximo_mantenimiento": "2025-06-01",
+          "estado": "programado"
+        }
+      ],
+      "resumen_alertas": {
+        "total": 3,
+        "criticas": 1,
+        "altas": 1,
+        "medias": 1,
+        "bajas": 0
+      },
+      "timestamp": "2025-05-26T20:55:36"
+    }
+  },
+  "Instrumentos (Mock)": {
+    "status": "success",
+    "data": {
+      "success": true,
+      "data": {
+        "total": 125,
+        "disponibles": 98,
+        "en_uso": 15,
+        "mantenimiento": 12,
+        "categorias": [
+          {
+            "nombre": "Bisturíes",
+            "cantidad": 25
+          },
+          {
+            "nombre": "Pinzas",
+            "cantidad": 40
+          },
+          {
+            "nombre": "Tijeras",
+            "cantidad": 20
+          },
+          {
+            "nombre": "Retractores",
+            "cantidad": 15
+          },
+          {
+            "nombre": "Otros",
+            "cantidad": 25
+          }
+        ],
+        "por_estado": {
+          "disponible": 98,
+          "en_uso": 15,
+          "mantenimiento": 12
+        }
+      }
+    }
+  },
+  "Alertas (Mock)": {
+    "status": "success",
+    "data": {
+      "success": true,
+      "data": [
+        {
+          "id": 1,
+          "tipo": "mantenimiento",
+          "mensaje": "Instrumento #45 requiere mantenimiento programado",
+          "prioridad": "alta",
+          "fecha_creacion": "2025-05-26T20:55:00",
+          "estado": "activa"
+        },
+        {
+          "id": 2,
+          "tipo": "discrepancia",
+          "mensaje": "Conteo incompleto en quirófano 3",
+          "prioridad": "media",
+          "fecha_creacion": "2025-05-26T19:30:00",
+          "estado": "activa"
+        },
+        {
+          "id": 3,
+          "tipo": "info",
+          "mensaje": "Procedimiento completado exitosamente",
+          "prioridad": "baja",
+          "fecha_creacion": "2025-05-26T18:15:00",
+          "estado": "activa"
+        }
+      ]
+    }
+  }
+}

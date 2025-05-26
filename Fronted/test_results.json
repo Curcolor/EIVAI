@@ -1,0 +1,38 @@
+{
+  "Dashboard Completo": {
+    "status": "success",
+    "data": {
+      "estadisticas_generales": {},
+      "alertas_criticas": [],
+      "procedimientos_activos": [],
+      "conteos_pendientes": [],
+      "instrumentos_mantenimiento": [],
+      "resumen_alertas": {},
+      "timestamp": "601856.984"
+    }
+  },
+  "Usuarios": {
+    "status": "error",
+    "error": ""
+  },
+  "Instrumentos Estadísticas": {
+    "status": "error",
+    "error": ""
+  },
+  "Alertas Activas": {
+    "status": "error",
+    "error": ""
+  },
+  "Conteos": {
+    "status": "error",
+    "error": ""
+  },
+  "Sets Activos": {
+    "status": "error",
+    "error": ""
+  },
+  "Procedimientos Estadísticas": {
+    "status": "error",
+    "error": ""
+  }
+}

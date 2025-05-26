@@ -1,0 +1,199 @@
+/* 
+ * EIVAI - Estilos adicionales para el dashboard integrado
+ * Archivo: dashboard-integration.css
+ * 
+ * Descripción:
+ *   Estilos específicos para las nuevas secciones del dashboard integrado
+ *   incluyendo alertas, instrumentos, procedimientos, conteos y sets.
+ */
+
+/* Loading indicators */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(0,0,0,.1);
+    border-radius: 50%;
+    border-top-color: var(--azul-profundo);
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Alertas section */
+.alert {
+    border-left: 4px solid;
+    border-radius: 0.375rem;
+    margin-bottom: 0.75rem;
+}
+
+.alert-success {
+    border-left-color: var(--verde-quirurgico);
+    background-color: rgba(47, 126, 121, 0.1);
+}
+
+.alert-warning {
+    border-left-color: #ffc107;
+    background-color: rgba(255, 193, 7, 0.1);
+}
+
+.alert-danger {
+    border-left-color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+.alert-info {
+    border-left-color: var(--cian);
+    background-color: rgba(27, 205, 176, 0.1);
+}
+
+/* Badges para estados */
+.badge {
+    font-size: 0.75em;
+    font-weight: 600;
+    border-radius: 0.375rem;
+    padding: 0.25em 0.5em;
+}
+
+.badge.bg-success {
+    background-color: var(--verde-quirurgico) !important;
+}
+
+.badge.bg-warning {
+    background-color: #ffc107 !important;
+    color: #000 !important;
+}
+
+.badge.bg-danger {
+    background-color: #dc3545 !important;
+}
+
+.badge.bg-info {
+    background-color: var(--cian) !important;
+}
+
+.badge.bg-primary {
+    background-color: var(--azul-profundo) !important;
+}
+
+.badge.bg-secondary {
+    background-color: var(--gris-acero) !important;
+    color: var(--azul-profundo) !important;
+}
+
+/* Conteos y Sets sections */
+.border-bottom {
+    border-bottom: 1px solid rgba(0,0,0,.125) !important;
+}
+
+.small-text {
+    font-size: 0.875em;
+    color: #6c757d;
+}
+
+/* Hover effects para elementos interactivos */
+.card-body .border-bottom:hover {
+    background-color: rgba(27, 54, 93, 0.05);
+    border-radius: 0.25rem;
+    transition: background-color 0.2s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .col-lg-4, .col-lg-6 {
+        margin-bottom: 1rem;
+    }
+    
+    .card-body {
+        padding: 1rem 0.75rem;
+    }
+    
+    .badge {
+        font-size: 0.7em;
+    }
+}
+
+/* Toast notifications */
+.toast-container {
+    z-index: 1055;
+}
+
+.toast {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0,0,0,.1);
+}
+
+/* Debug utilities */
+.debug-info {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    padding: 0.75rem;
+    font-family: monospace;
+    font-size: 0.875em;
+    color: #495057;
+}
+
+/* Animation for loading states */
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Enhanced card effects */
+.stats-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(27, 54, 93, 0.15);
+}
+
+.card-header {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.875em;
+}
+
+/* Button improvements */
+.btn-outline-secondary:hover {
+    background-color: var(--gris-acero);
+    border-color: var(--gris-acero);
+    color: var(--azul-profundo);
+}
+
+#refresh-dashboard {
+    transition: all 0.2s ease;
+}
+
+#refresh-dashboard:hover {
+    transform: scale(1.02);
+}
+
+/* Status indicators */
+.status-indicator {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.status-active {
+    background-color: var(--verde-quirurgico);
+    box-shadow: 0 0 6px rgba(47, 126, 121, 0.5);
+}
+
+.status-warning {
+    background-color: #ffc107;
+    box-shadow: 0 0 6px rgba(255, 193, 7, 0.5);
+}
+
+.status-inactive {
+    background-color: #6c757d;
+}

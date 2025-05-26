@@ -17,6 +17,7 @@
 <!-- CSS específico para la página de inicio -->
 {% block head %}
 <link rel="stylesheet" href="/static/css/index.css">
+<link rel="stylesheet" href="/static/css/dashboard-integration.css">
 {% endblock %}
 
 {% block content %}
@@ -39,7 +40,7 @@
 </div>
 
 <!-- Tarjetas de estadísticas principales del sistema -->
-<div class="row mb-3">
+<div class="row mb-3" id="estadisticas-generales">
     <!-- Estadística: Total de herramientas registradas en la base de datos -->
     <div class="col-md-3 col-sm-6 mb-3">
         <div class="card border-0 shadow-sm h-100 stats-card">
@@ -148,25 +149,24 @@
                 </h5>
             </div>
             <div class="card-body">
-                <div class="row">
-                    <!-- Estadísticas del día actual -->
+                <div class="row">                <!-- Estadísticas del día actual -->
                     <div class="col-md-6">
                         <h6 class="text-muted mb-3">Estadísticas del Día</h6>
                         <div class="d-flex justify-content-between mb-2">
                             <span>Identificaciones completadas:</span>
-                            <strong>42</strong>
+                            <strong id="daily-identifications">42</strong>
                         </div>
                         <div class="d-flex justify-content-between mb-2">
                             <span>Tiempo promedio:</span>
-                            <strong>2.1s</strong>
+                            <strong id="daily-avg-time">2.1s</strong>
                         </div>
                         <div class="d-flex justify-content-between mb-2">
                             <span>Precisión promedio:</span>
-                            <strong>95.3%</strong>
+                            <strong id="daily-accuracy">95.3%</strong>
                         </div>
                         <div class="d-flex justify-content-between">
                             <span>Usuarios activos:</span>
-                            <strong>7</strong>
+                            <strong id="active-users">7</strong>
                         </div>
                     </div>
                     
@@ -195,14 +195,23 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- Botón principal para acceder a la identificación -->
+                  <!-- Botón principal para acceder a la identificación -->
                 <div class="row mt-3">
                     <div class="col-12">
                         <a href="/identificacion" class="btn btn-primary btn-lg w-100">
                             <i class="fas fa-camera me-2"></i>
                             Ir a Identificación de Herramientas
                         </a>
+                    </div>
+                </div>
+                
+                <!-- Botón de actualización manual -->
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <button id="refresh-dashboard" class="btn btn-outline-secondary btn-sm w-100">
+                            <i class="fas fa-sync-alt me-2"></i>
+                            Actualizar Dashboard
+                        </button>
                     </div>
                 </div>
             </div>
@@ -240,8 +249,7 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Panel de accesos rápidos -->
+          <!-- Panel de accesos rápidos -->
         <div class="card border-0 shadow-sm">
             <div class="card-header bg-secondary text-white">
                 <h6 class="mb-0">
@@ -272,106 +280,135 @@
     </div>
 </div>
 
+<!-- Sección de alertas y componentes del sistema -->
+<div class="row mb-3" id="alertas-section">
+    <!-- Panel de alertas activas -->
+    <div class="col-lg-6">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    Alertas del Sistema
+                </h5>
+            </div>
+            <div class="card-body">
+                <div id="alertas-container">
+                    <!-- Las alertas se cargarán dinámicamente aquí -->
+                    <div class="text-center">
+                        <i class="fas fa-spinner fa-spin me-2"></i>
+                        Cargando alertas...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Panel de instrumentos -->
+    <div class="col-lg-6">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-tools me-2"></i>
+                    Instrumentos Quirúrgicos
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <h6 class="text-muted mb-3">Total Registrados</h6>
+                        <h3 class="text-primary fw-bold" id="instrumentos-total">0</h3>
+                    </div>
+                    <div class="col-6">
+                        <h6 class="text-muted mb-3">Categorías Principales</h6>
+                        <div id="categorias-container">
+                            <!-- Las categorías se cargarán dinámicamente aquí -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sección de procedimientos y sets quirúrgicos -->
+<div class="row mb-3" id="procedimientos-section">
+    <!-- Panel de procedimientos -->
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-clipboard-list me-2"></i>
+                    Procedimientos
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span>Total:</span>
+                        <strong id="procedimientos-total">0</strong>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span>Activos:</span>
+                        <strong id="procedimientos-activos" class="text-warning">0</strong>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span>Completados:</span>
+                        <strong id="procedimientos-completados" class="text-success">0</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Panel de conteos recientes -->
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-camera me-2"></i>
+                    Conteos Recientes
+                </h5>
+            </div>
+            <div class="card-body">
+                <div id="conteos-container">
+                    <!-- Los conteos se cargarán dinámicamente aquí -->
+                    <small class="text-muted">Cargando conteos recientes...</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Panel de sets quirúrgicos -->
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-box me-2"></i>
+                    Sets Quirúrgicos
+                </h5>
+            </div>
+            <div class="card-body">
+                <div id="sets-container">
+                    <!-- Los sets se cargarán dinámicamente aquí -->
+                    <small class="text-muted">Cargando sets disponibles...</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- 
    * ESTILOS CSS PERSONALIZADOS PARA EL TEMA QUIRÚRGICO
    * Variables de color del sistema médico y quirúrgico
    * Animaciones y efectos visuales
    * Responsive design para diferentes dispositivos
 -->
-<!-- 
-   * JAVASCRIPT PARA FUNCIONALIDADES DINÁMICAS
-   * Actualización de estadísticas en tiempo real
-   * Gestión de eventos de la interfaz
-   * Simulación de datos del sistema
--->
-<script>
-/**
- * Función principal de inicialización del dashboard
- * Se ejecuta cuando el DOM está completamente cargado
- */
-document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar estadísticas del sistema
-    updateStats();
-    
-    // Configurar actualización automática de estadísticas cada 30 segundos
-    setInterval(updateStats, 30000);
-    
-    // Mostrar mensaje de bienvenida en la consola
-    console.log('Dashboard EIVAI inicializado correctamente');
-});
-
-/**
- * Función para actualizar las estadísticas del sistema
- * Simula datos en tiempo real de la aplicación
- */
-function updateStats() {
-    // Generar estadísticas simuladas basadas en rangos realistas
-    const stats = {
-        totalTools: Math.floor(Math.random() * 50) + 200,           // 200-250 herramientas
-        successfulId: Math.floor(Math.random() * 200) + 1000,      // 1000-1200 identificaciones
-        avgTime: (Math.random() * 2 + 1).toFixed(1) + 's',        // 1.0-3.0 segundos
-        accuracy: (Math.random() * 5 + 95).toFixed(1) + '%'       // 95.0-100.0% precisión
-    };
-    
-    // Actualizar elementos del DOM con las nuevas estadísticas
-    const totalToolsElement = document.getElementById('total-tools');
-    const successfulIdElement = document.getElementById('successful-id');
-    const avgTimeElement = document.getElementById('avg-time');
-    const accuracyElement = document.getElementById('accuracy');
-    
-    // Verificar que los elementos existen antes de actualizarlos
-    if (totalToolsElement) totalToolsElement.textContent = stats.totalTools;
-    if (successfulIdElement) successfulIdElement.textContent = stats.successfulId.toLocaleString();
-    if (avgTimeElement) avgTimeElement.textContent = stats.avgTime;
-    if (accuracyElement) accuracyElement.textContent = stats.accuracy;
-    
-    // Log para debugging (opcional, remover en producción)
-    console.log('Estadísticas actualizadas:', stats);
-}
-
-/**
- * Función para manejar clics en los accesos rápidos
- * Proporciona feedback visual y navegación
- */
-function handleQuickAccess(type) {
-    console.log(`Acceso rápido seleccionado: ${type}`);
-    
-    // Agregar lógica específica según el tipo de acceso
-    switch(type) {
-        case 'identificacion':
-            // Navegar a la página de identificación
-            window.location.href = '/identificacion';
-            break;
-        case 'reportes':
-            // Mostrar mensaje de funcionalidad en desarrollo
-            alert('Funcionalidad de reportes en desarrollo');
-            break;
-        case 'configuracion':
-            // Mostrar mensaje de funcionalidad en desarrollo
-            alert('Funcionalidad de configuración en desarrollo');
-            break;
-        default:
-            console.log('Tipo de acceso no reconocido');
-    }
-}
-
-/**
- * Función para mostrar información del sistema
- * Puede expandirse para mostrar más detalles técnicos
- */
-function showSystemInfo() {
-    const systemInfo = {
-        version: 'v2.1.0',
-        lastUpdate: '26/05/2025',
-        serverStatus: 'Conectado',
-        availableModels: 15,
-        uptime: '99.9%'
-    };
-    
-    console.log('Información del sistema:', systemInfo);
-    return systemInfo;
-}
-</script>
+<!-- JavaScript para funcionalidades dinámicas del dashboard -->
+<script src="/static/js/dashboard.js"></script>
 
 <!-- Enlaces a librerías externas necesarias -->
 <!-- Font Awesome para iconos médicos y de interfaz -->
