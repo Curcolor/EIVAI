@@ -1,12 +1,16 @@
 /* Estilos personalizados para EIVAI */
 
 :root {
-    --primary-color: #0d6efd;
-    --secondary-color: #6c757d;
-    --success-color: #198754;
+    --azul-profundo: #1B365D;
+    --verde-quirurgico: #2F7E79;
+    --gris-acero: #BFCAD3;
+    --cian: #1BCDB0;
+    --primary-color: #1B365D;
+    --secondary-color: #BFCAD3;
+    --success-color: #2F7E79;
     --danger-color: #dc3545;
     --warning-color: #ffc107;
-    --info-color: #0dcaf0;
+    --info-color: #1BCDB0;
 }
 
 body {
@@ -22,8 +26,8 @@ body {
 
 /* Hero section */
 .hero-section {
-    background: linear-gradient(135deg, var(--primary-color) 0%, #0056b3 100%);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, var(--azul-profundo) 0%, var(--verde-quirurgico) 100%);
+    box-shadow: 0 4px 6px rgba(27, 54, 93, 0.2);
 }
 
 /* Cards */
@@ -45,8 +49,8 @@ footer {
 
 /* Formularios */
 .form-control:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    border-color: var(--azul-profundo);
+    box-shadow: 0 0 0 0.2rem rgba(27, 54, 93, 0.25);
 }
 
 .btn-primary {

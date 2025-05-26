@@ -17,7 +17,7 @@ main_router = APIRouter()
 @main_router.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     """
-    Página principal
+    Página principal - Dashboard de inicio
     """
     return templates.TemplateResponse(
         "index.html", 
@@ -44,6 +44,28 @@ async def contact(request: Request):
     return templates.TemplateResponse(
         "contact.html", 
         {"request": request, "title": "Contacto"}
+    )
+
+
+@main_router.get("/dashboard", response_class=HTMLResponse)
+async def dashboard(request: Request):
+    """
+    Dashboard de identificación de herramientas quirúrgicas - mismo contenido que inicio
+    """
+    return templates.TemplateResponse(
+        "dashboard.html", 
+        {"request": request, "title": "Inicio"}
+    )
+
+
+@main_router.get("/identificacion", response_class=HTMLResponse)
+async def identificacion(request: Request):
+    """
+    Página de identificación de herramientas quirúrgicas
+    """
+    return templates.TemplateResponse(
+        "identificacion.html", 
+        {"request": request, "title": "Identificación de Herramientas"}
     )
 
 
