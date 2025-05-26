@@ -249,23 +249,29 @@
                     Accesos Rápidos
                 </h6>
             </div>
-            <div class="card-body">
-                <div class="d-grid gap-2">
+            <div class="card-body">                <div class="d-grid gap-2">
                     <!-- Acceso a identificación de herramientas -->
                     <a href="/identificacion" class="btn btn-outline-primary btn-sm">
                         <i class="fas fa-camera me-2"></i>
                         Identificar Herramientas
                     </a>
-                    <!-- Acceso a reportes (funcionalidad futura) -->
-                    <a href="#" class="btn btn-outline-secondary btn-sm">
-                        <i class="fas fa-chart-bar me-2"></i>
-                        Ver Reportes
-                    </a>                    
-                    <!-- Acceso a configuración (funcionalidad futura) -->
-                    <a href="#" class="btn btn-outline-info btn-sm">
-                        <i class="fas fa-cog me-2"></i>
-                        Configuración
+                    <!-- Acceso a información del sistema -->
+                    <a href="/about" class="btn btn-outline-info btn-sm">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Acerca del Sistema
                     </a>
+                    <!-- Acceso al perfil del usuario (si está autenticado) -->
+                    {% if user %}
+                    <a href="/perfil" class="btn btn-outline-success btn-sm">
+                        <i class="fas fa-user me-2"></i>
+                        Mi Perfil
+                    </a>
+                    {% else %}
+                    <a href="/login" class="btn btn-outline-warning btn-sm">
+                        <i class="fas fa-sign-in-alt me-2"></i>
+                        Iniciar Sesión
+                    </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -342,13 +348,17 @@ function handleQuickAccess(type) {
             // Navegar a la página de identificación
             window.location.href = '/identificacion';
             break;
-        case 'reportes':
-            // Mostrar mensaje de funcionalidad en desarrollo
-            alert('Funcionalidad de reportes en desarrollo');
+        case 'about':
+            // Navegar a la página acerca de
+            window.location.href = '/about';
             break;
-        case 'configuracion':
-            // Mostrar mensaje de funcionalidad en desarrollo
-            alert('Funcionalidad de configuración en desarrollo');
+        case 'perfil':
+            // Navegar al perfil del usuario
+            window.location.href = '/perfil';
+            break;
+        case 'login':
+            // Navegar a la página de login
+            window.location.href = '/login';
             break;
         default:
             console.log('Tipo de acceso no reconocido');
