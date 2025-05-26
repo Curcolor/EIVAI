@@ -472,6 +472,18 @@ async def mostrar_perfil(request: Request):
     )
 
 
+@main_router.get("/chat", response_class=HTMLResponse)
+async def chat(request: Request):
+    """
+    Página de chat de soporte simulada
+    """
+    user = get_current_user(request) if 'get_current_user' in globals() else None
+    return templates.TemplateResponse(
+        "chat.html",
+        {"request": request, "title": "Chat", "user": user}
+    )
+
+
 @main_router.get("/health")
 async def health_check():
     """
