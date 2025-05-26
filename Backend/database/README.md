@@ -10,7 +10,6 @@ Este directorio contiene todos los scripts SQL necesarios para crear y configura
 - **`03_insert_initial_data.sql`** - Inserción de datos iniciales
 - **`04_stored_procedures.sql`** - Procedimientos almacenados
 - **`05_views.sql`** - Vistas del sistema
-- **`06_functions_triggers.sql`** - Funciones y triggers
 
 ## Características del Sistema
 
