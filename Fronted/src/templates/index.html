@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero-section bg-primary text-white rounded p-5 mb-5">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <h1 class="display-4 fw-bold">Bienvenido a EIVAI</h1>
+            <p class="lead">Tu plataforma de frontend estático desarrollada con FastAPI</p>
+            <a href="/about" class="btn btn-light btn-lg">Conoce más</a>
+        </div>
+        <div class="col-md-4 text-center">
+            <i class="fas fa-rocket fa-5x"></i>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-code fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Desarrollo Rápido</h5>
+                <p class="card-text">Estructura bien organizada para un desarrollo eficiente y mantenible.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-cogs fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Configuración Simple</h5>
+                <p class="card-text">Configuración centralizada y fácil de mantener.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-bolt fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Alto Rendimiento</h5>
+                <p class="card-text">Basado en FastAPI para máximo rendimiento y escalabilidad.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-info" role="alert">
+    <h4 class="alert-heading">¡Servidor funcionando!</h4>
+    <p>Tu aplicación FastAPI está ejecutándose correctamente. Puedes comenzar a desarrollar tu frontend estático.</p>
+    <hr>
+    <p class="mb-0">Revisa el endpoint <a href="/health" class="alert-link">/health</a> para verificar el estado del servidor.</p>
+</div>
+{% endblock %}
