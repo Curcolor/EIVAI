@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - EIVAI</title>
+    
+    <!-- CSS Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Iconos Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/auth.css">
+</head>
+<body class="auth-page">
+    <!-- Contenedor principal del registro -->
+    <div class="auth-container">
+        <div class="auth-card" style="max-width: 550px;">
+            <!-- Encabezado con logo y título -->
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h1 class="h3 text-center fw-bold text-dark">Registro de Instrumentador</h1>
+                <p class="text-muted text-center">Sistema EIVAI - Crear nueva cuenta</p>
+            </div>
+            
+            <!-- Información profesional -->
+            <div class="professional-info" style="background: rgba(47, 126, 121, 0.1); border-radius: 12px; padding: 15px; margin-bottom: 25px; border-left: 4px solid var(--verde-quirurgico);">
+                <h6 class="fw-bold mb-2">
+                    <i class="fas fa-stethoscope me-2"></i>Registro Profesional
+                </h6>
+                <small class="text-muted">
+                    Este sistema está diseñado exclusivamente para instrumentadores quirúrgicos certificados.
+                    Por favor, proporcione información precisa para la verificación de credenciales.
+                </small>
+            </div>
+            
+            <!-- Mostrar errores -->
+            {% if errors %}
+                {% for error in errors %}
+                <div class="alert alert-custom alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    {{ error }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endfor %}
+            {% endif %}
+            
+            <!-- Formulario de registro -->
+            <form id="registerForm" method="POST" action="/registro">
+                <!-- Nombre completo -->
+                <div class="form-floating">
+                    <input type="text" 
+                           class="form-control" 
+                           id="nombre_completo" 
+                           name="nombre_completo" 
+                           placeholder="Nombre completo"
+                           value="{{ form_data.nombre_completo if form_data else '' }}"
+                           required
+                           autocomplete="name">
+                    <label for="nombre_completo">
+                        <i class="fas fa-user me-2"></i>Nombre Completo
+                    </label>
+                </div>
+                
+                <!-- Nombre de usuario -->
+                <div class="form-floating">
+                    <input type="text" 
+                           class="form-control" 
+                           id="username" 
+                           name="username" 
+                           placeholder="Nombre de usuario"
+                           value="{{ form_data.username if form_data else '' }}"
+                           required
+                           autocomplete="username">
+                    <label for="username">
+                        <i class="fas fa-at me-2"></i>Nombre de Usuario
+                    </label>
+                </div>
+                
+                <!-- Email -->
+                <div class="form-floating">
+                    <input type="email" 
+                           class="form-control" 
+                           id="email" 
+                           name="email" 
+                           placeholder="Correo electrónico"
+                           value="{{ form_data.email if form_data else '' }}"
+                           required
+                           autocomplete="email">
+                    <label for="email">
+                        <i class="fas fa-envelope me-2"></i>Correo Electrónico
+                    </label>
+                </div>
+                
+                <!-- Contraseña -->
+                <div class="form-floating">
+                    <input type="password" 
+                           class="form-control" 
+                           id="password" 
+                           name="password" 
+                           placeholder="Contraseña"
+                           required
+                           autocomplete="new-password">
+                    <label for="password">
+                        <i class="fas fa-lock me-2"></i>Contraseña
+                    </label>
+                </div>
+                
+                <!-- Indicador de fortaleza de contraseña -->
+                <div class="password-strength">
+                    <div class="strength-meter">
+                        <div class="strength-fill" id="strengthFill"></div>
+                    </div>
+                    <small class="text-muted" id="strengthText">Ingrese una contraseña segura</small>
+                </div>
+                
+                <!-- Confirmar contraseña -->
+                <div class="form-floating">
+                    <input type="password" 
+                           class="form-control" 
+                           id="confirm_password" 
+                           name="confirm_password" 
+                           placeholder="Confirmar contraseña"
+                           required
+                           autocomplete="new-password">
+                    <label for="confirm_password">
+                        <i class="fas fa-lock me-2"></i>Confirmar Contraseña
+                    </label>
+                </div>
+                
+                <!-- Número de licencia profesional (opcional) -->
+                <div class="form-floating">
+                    <input type="text" 
+                           class="form-control" 
+                           id="licencia_profesional" 
+                           name="licencia_profesional" 
+                           value="{{ form_data.licencia_profesional if form_data else '' }}"
+                           placeholder="Número de licencia profesional">
+                    <label for="licencia_profesional">
+                        <i class="fas fa-id-card me-2"></i>Licencia Profesional (Opcional)
+                    </label>
+                </div>
+                
+                <!-- Términos y condiciones -->
+                <div style="background: rgba(27, 54, 93, 0.05); border-radius: 8px; padding: 15px; margin-bottom: 20px; font-size: 14px;">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="terms" name="terms" required>
+                        <label class="form-check-label" for="terms">
+                            <small>
+                                Acepto los <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">términos y condiciones</a> 
+                                del sistema EIVAI y confirmo que soy un instrumentador quirúrgico certificado.
+                            </small>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Botón de envío -->
+                <button type="submit" class="btn btn-auth" id="submitBtn">
+                    <span class="loading-spinner spinner-border spinner-border-sm me-2" role="status"></span>
+                    <span class="btn-text">
+                        <i class="fas fa-user-plus me-2"></i>Crear Cuenta
+                    </span>
+                </button>
+            </form>
+            
+            <!-- Enlaces adicionales -->
+            <div class="auth-links">
+                <a href="/login">
+                    <i class="fas fa-sign-in-alt me-1"></i>Ya tengo cuenta
+                </a>
+                <span class="divider">|</span>
+                <a href="/">
+                    <i class="fas fa-home me-1"></i>Volver al inicio
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de Términos y Condiciones -->
+    <div class="modal fade" id="termsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-file-contract me-2"></i>Términos y Condiciones
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="terms-content">
+                        <h6>1. Uso del Sistema EIVAI</h6>
+                        <p>Este sistema está diseñado exclusivamente para instrumentadores quirúrgicos certificados y personal médico autorizado.</p>
+                        
+                        <h6>2. Responsabilidad Profesional</h6>
+                        <p>El usuario se compromete a utilizar el sistema de manera responsable y ética, manteniendo la confidencialidad de la información médica.</p>
+                        
+                        <h6>3. Seguridad de Datos</h6>
+                        <p>Toda la información ingresada será tratada con la máxima confidencialidad y seguridad, cumpliendo con los estándares médicos internacionales.</p>
+                        
+                        <h6>4. Verificación de Credenciales</h6>
+                        <p>La institución se reserva el derecho de verificar las credenciales profesionales del usuario registrado.</p>
+                        
+                        <h6>5. Actualizaciones del Sistema</h6>
+                        <p>El sistema puede recibir actualizaciones periódicas para mejorar la funcionalidad y seguridad.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="acceptTerms()">Acepto los Términos</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script personalizado para el formulario de registro -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const registerForm = document.getElementById('registerForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const passwordField = document.getElementById('password');
+            const confirmPasswordField = document.getElementById('confirm_password');
+            const strengthFill = document.getElementById('strengthFill');
+            const strengthText = document.getElementById('strengthText');
+            
+            // Validación en tiempo real de la contraseña
+            passwordField.addEventListener('input', function() {
+                const password = this.value;
+                const strength = calculatePasswordStrength(password);
+                updatePasswordStrength(strength);
+            });
+            
+            // Validación de confirmación de contraseña
+            confirmPasswordField.addEventListener('input', function() {
+                validatePasswordMatch();
+            });
+            
+            // Validación del formulario al enviar
+            registerForm.addEventListener('submit', function(e) {
+                // Mostrar indicador de carga
+                submitBtn.classList.add('loading');
+                submitBtn.disabled = true;
+                
+                // Validar campos básicos
+                const requiredFields = ['nombre_completo', 'username', 'email', 'password', 'confirm_password'];
+                let isValid = true;
+                
+                requiredFields.forEach(fieldName => {
+                    const field = document.getElementById(fieldName);
+                    if (!field.value.trim()) {
+                        field.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        field.classList.remove('is-invalid');
+                    }
+                });
+                
+                if (!isValid) {
+                    e.preventDefault();
+                    submitBtn.classList.remove('loading');
+                    submitBtn.disabled = false;
+                    showAlert('error', 'Por favor, complete todos los campos requeridos.');
+                }
+            });
+            
+            // Función para calcular la fortaleza de la contraseña
+            function calculatePasswordStrength(password) {
+                let score = 0;
+                
+                if (password.length >= 8) score += 1;
+                if (password.match(/[a-z]/)) score += 1;
+                if (password.match(/[A-Z]/)) score += 1;
+                if (password.match(/[0-9]/)) score += 1;
+                if (password.match(/[^a-zA-Z0-9]/)) score += 1;
+                
+                return score;
+            }
+            
+            // Función para actualizar el indicador de fortaleza
+            function updatePasswordStrength(strength) {
+                const percentage = (strength / 5) * 100;
+                strengthFill.style.width = percentage + '%';
+                
+                if (strength <= 2) {
+                    strengthFill.className = 'strength-fill strength-weak';
+                    strengthText.textContent = 'Contraseña débil';
+                } else if (strength <= 3) {
+                    strengthFill.className = 'strength-fill strength-medium';
+                    strengthText.textContent = 'Contraseña moderada';
+                } else {
+                    strengthFill.className = 'strength-fill strength-strong';
+                    strengthText.textContent = 'Contraseña fuerte';
+                }
+            }
+            
+            // Función para validar que las contraseñas coincidan
+            function validatePasswordMatch() {
+                const password = passwordField.value;
+                const confirmPassword = confirmPasswordField.value;
+                
+                if (confirmPassword && password !== confirmPassword) {
+                    confirmPasswordField.classList.add('is-invalid');
+                    confirmPasswordField.classList.remove('is-valid');
+                    return false;
+                } else if (confirmPassword) {
+                    confirmPasswordField.classList.add('is-valid');
+                    confirmPasswordField.classList.remove('is-invalid');
+                    return true;
+                }
+                return true;
+            }
+            
+            // Función para mostrar alertas dinámicas
+            function showAlert(type, message) {
+                const alertClass = type === 'error' ? 'alert-danger' : 'alert-success';
+                const icon = type === 'error' ? 'exclamation-triangle' : 'check-circle';
+                
+                const alertHtml = `
+                    <div class="alert alert-custom ${alertClass} alert-dismissible fade show" role="alert">
+                        <i class="fas fa-${icon} me-2"></i>
+                        ${message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                `;
+                
+                registerForm.insertAdjacentHTML('beforebegin', alertHtml);
+                
+                setTimeout(() => {
+                    const alerts = document.querySelectorAll('.alert');
+                    alerts.forEach(alert => {
+                        if (alert.querySelector('.btn-close')) {
+                            alert.remove();
+                        }
+                    });
+                }, 5000);
+            }
+        });
+        
+        // Función para aceptar términos desde el modal
+        function acceptTerms() {
+            document.getElementById('terms').checked = true;
+            const modal = bootstrap.Modal.getInstance(document.getElementById('termsModal'));
+            modal.hide();
+        }
+    </script>
+</body>
+</html>
