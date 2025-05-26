@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - EIVAI</title>
+    
+    <!-- CSS Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Iconos Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/auth.css">
+</head>
+<body class="auth-page">
+    <!-- Contenedor principal del login -->
+    <div class="auth-container">
+        <div class="auth-card">
+            <!-- Encabezado con logo y título -->
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <h1 class="h3 text-center fw-bold text-dark">Iniciar Sesión</h1>
+                <p class="text-muted text-center">Sistema EIVAI - Instrumentador Quirúrgico</p>
+            </div>
+            
+            <!-- Mostrar mensajes de error -->
+            {% if error %}
+            <div class="alert alert-custom alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                {{ error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endif %}
+            
+            <!-- Formulario de login -->
+            <form id="loginForm" method="POST" action="/login">
+                <!-- Campo de nombre de usuario -->
+                <div class="form-floating">
+                    <input type="text" 
+                           class="form-control" 
+                           id="username" 
+                           name="username" 
+                           placeholder="Nombre de usuario"
+                           required
+                           autocomplete="username">
+                    <label for="username">
+                        <i class="fas fa-user me-2"></i>Nombre de Usuario
+                    </label>
+                </div>
+                
+                <!-- Campo de contraseña -->
+                <div class="form-floating">
+                    <input type="password" 
+                           class="form-control" 
+                           id="password" 
+                           name="password" 
+                           placeholder="Contraseña"
+                           required
+                           autocomplete="current-password">
+                    <label for="password">
+                        <i class="fas fa-lock me-2"></i>Contraseña
+                    </label>
+                </div>
+                
+                <!-- Checkbox para recordar sesión -->
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="remember" name="remember">
+                    <label class="form-check-label" for="remember">
+                        Mantener sesión iniciada
+                    </label>
+                </div>
+                
+                <!-- Botón de envío -->
+                <button type="submit" class="btn btn-auth">
+                    <span class="loading-spinner spinner-border spinner-border-sm me-2" role="status"></span>
+                    <span class="btn-text">
+                        <i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión
+                    </span>
+                </button>
+            </form>
+            
+            <!-- Enlaces adicionales -->
+            <div class="auth-links">
+                <a href="/registro">
+                    <i class="fas fa-user-plus me-1"></i>Crear cuenta nueva
+                </a>
+                <span class="divider">|</span>
+                <a href="/">
+                    <i class="fas fa-home me-1"></i>Volver al inicio
+                </a>
+            </div>
+            
+            <!-- Información del sistema -->
+            <div class="system-info">
+                <small>
+                    <i class="fas fa-shield-alt me-1"></i>
+                    Sistema seguro para instrumentadores quirúrgicos
+                </small>        </div>
+    </div>
+    
+    <!-- Scripts JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script personalizado para el formulario de login -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const submitBtn = loginForm.querySelector('button[type="submit"]');
+            
+            // Manejar envío del formulario
+            loginForm.addEventListener('submit', function(e) {
+                // Mostrar indicador de carga
+                submitBtn.classList.add('loading');
+                submitBtn.disabled = true;
+                
+                // Validar campos básicos
+                const username = document.getElementById('username').value.trim();
+                const password = document.getElementById('password').value;
+                
+                if (!username || !password) {
+                    e.preventDefault();
+                    submitBtn.classList.remove('loading');
+                    submitBtn.disabled = false;
+                    
+                    // Mostrar alerta de campos requeridos
+                    showAlert('error', 'Por favor, complete todos los campos requeridos.');
+                    return;
+                }
+                
+                // Si todo está bien, el formulario se enviará normalmente
+            });
+            
+            // Función para mostrar alertas dinámicas
+            function showAlert(type, message) {
+                const alertClass = type === 'error' ? 'alert-danger' : 'alert-success';
+                const icon = type === 'error' ? 'exclamation-triangle' : 'check-circle';
+                
+                const alertHtml = `
+                    <div class="alert alert-custom ${alertClass} alert-dismissible fade show" role="alert">
+                        <i class="fas fa-${icon} me-2"></i>
+                        ${message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                `;
+                
+                // Insertar alerta antes del formulario
+                loginForm.insertAdjacentHTML('beforebegin', alertHtml);
+                
+                // Auto-cerrar la alerta después de 5 segundos
+                setTimeout(() => {
+                    const alerts = document.querySelectorAll('.alert');
+                    alerts.forEach(alert => {
+                        if (alert.querySelector('.btn-close')) {
+                            alert.remove();
+                        }
+                    });
+                }, 5000);
+            }
+            
+            // Remover indicador de carga si hay errores en el servidor
+            const alerts = document.querySelectorAll('.alert-danger');
+            if (alerts.length > 0) {
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
+    </div>
+    
+    <!-- Scripts JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script personalizado para el formulario de login -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const submitBtn = loginForm.querySelector('button[type="submit"]');
+            
+            // Manejar envío del formulario
+            loginForm.addEventListener('submit', function(e) {
+                // Mostrar indicador de carga
+                submitBtn.classList.add('loading');
+                submitBtn.disabled = true;
+                
+                // Validar campos básicos
+                const username = document.getElementById('username').value.trim();
+                const password = document.getElementById('password').value;
+                
+                if (!username || !password) {
+                    e.preventDefault();
+                    submitBtn.classList.remove('loading');
+                    submitBtn.disabled = false;
+                    
+                    // Mostrar alerta de campos requeridos
+                    showAlert('error', 'Por favor, complete todos los campos requeridos.');
+                    return;
+                }
+                
+                // Si todo está bien, el formulario se enviará normalmente
+            });
+            
+            // Función para mostrar alertas dinámicas
+            function showAlert(type, message) {
+                const alertClass = type === 'error' ? 'alert-danger' : 'alert-success';
+                const icon = type === 'error' ? 'exclamation-triangle' : 'check-circle';
+                
+                const alertHtml = `
+                    <div class="alert alert-custom ${alertClass} alert-dismissible fade show" role="alert">
+                        <i class="fas fa-${icon} me-2"></i>
+                        ${message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                `;
+                
+                // Insertar alerta antes del formulario
+                loginForm.insertAdjacentHTML('beforebegin', alertHtml);
+                
+                // Auto-cerrar la alerta después de 5 segundos
+                setTimeout(() => {
+                    const alerts = document.querySelectorAll('.alert');
+                    alerts.forEach(alert => {
+                        if (alert.querySelector('.btn-close')) {
+                            alert.remove();
+                        }
+                    });
+                }, 5000);
+            }
+            
+            // Remover indicador de carga si hay errores en el servidor
+            const alerts = document.querySelectorAll('.alert-danger');
+            if (alerts.length > 0) {
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

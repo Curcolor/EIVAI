@@ -1,0 +1,93 @@
+#chat-header-section {
+    position: relative;
+}
+.chat-toggle {
+    cursor: pointer;
+    color: var(--azul-profundo);
+    background: #fff;
+    border-radius: 50%;
+    padding: 8px 10px;
+    box-shadow: 0 2px 8px rgba(27,54,93,0.08);
+    transition: background 0.2s;
+}
+.chat-toggle:hover {
+    background: var(--verde-quirurgico);
+    color: #fff;
+}
+.chat-box {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    width: 320px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(27,54,93,0.18);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.chat-header {
+    background: var(--azul-profundo);
+    color: #fff;
+    padding: 10px 16px;
+    font-weight: 500;
+}
+.chat-messages {
+    min-height: 320px;
+    max-height: 380px;
+    overflow-y: auto;
+    background: #f8f9fa;
+    border-radius: 0 0 12px 12px;
+}
+.message {
+    margin-bottom: 10px;
+    display: flex;
+}
+.message.received {
+    justify-content: flex-start;
+}
+.message.sent {
+    justify-content: flex-end;
+}
+.message.received .message-content {
+    background: var(--gris-acero);
+    color: #222;
+    align-self: flex-start;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 18px;
+    border-top-right-radius: 18px;
+    border-top-left-radius: 18px;
+}
+.message.sent .message-content {
+    background: var(--cian);
+    color: #fff;
+    align-self: flex-end;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 18px;
+    border-top-right-radius: 18px;
+    border-top-left-radius: 18px;
+}
+.message-content {
+    padding: 10px 18px;
+    max-width: 80%;
+    font-size: 1rem;
+    box-shadow: 0 1px 4px rgba(27,54,93,0.06);
+    word-break: break-word;
+}
+.chat-input-area {
+    background: #fff;
+    border-top: 1px solid #eee;
+}
+.card.chat-card {
+    border-radius: 16px;
+    overflow: hidden;
+}
+.d-none { display: none !important; }
+.fade-in { animation: fadeIn 0.4s; }
+@media (max-width: 600px) {
+    .chat-box { width: 98vw; right: -10vw; }
+}
+@media (max-width: 900px) {
+    .chat-messages { min-height: 180px; max-height: 260px; }
+}

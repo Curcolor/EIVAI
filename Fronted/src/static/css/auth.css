@@ -1,0 +1,261 @@
+/* 
+ * EIVAI - Estilos de Autenticación
+ * Archivo: auth.css - Estilos específicos para páginas de login y registro
+ * Descripción: Estilos para formularios de autenticación con tema quirúrgico
+ */
+
+/* Variables CSS para consistencia de colores */
+:root {
+    --azul-profundo: #1B365D;
+    --verde-quirurgico: #2F7E79;
+    --gris-claro: #f8f9fa;
+    --texto-principal: #2c3e50;
+    --texto-secundario: #6c757d;
+}
+
+/* Fondo degradado quirúrgico para páginas de autenticación */
+body.auth-page {
+    background: linear-gradient(135deg, var(--azul-profundo) 0%, var(--verde-quirurgico) 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Contenedor principal del formulario de autenticación */
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Tarjeta del formulario de autenticación */
+.auth-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 100%;
+    max-width: 450px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Encabezado del formulario */
+.auth-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.auth-logo {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--azul-profundo), var(--verde-quirurgico));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.auth-logo i {
+    color: white;
+    font-size: 2.5rem;
+}
+
+/* Campos del formulario */
+.form-floating {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 15px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--verde-quirurgico);
+    box-shadow: 0 0 0 0.2rem rgba(47, 126, 121, 0.25);
+}
+
+/* Botones principales de autenticación */
+.btn-auth {
+    background: linear-gradient(135deg, var(--azul-profundo), var(--verde-quirurgico));
+    border: none;
+    border-radius: 12px;
+    padding: 15px;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    width: 100%;
+    color: white;
+}
+
+.btn-auth:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    color: white;
+}
+
+/* Enlaces adicionales */
+.auth-links {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.auth-links a {
+    color: var(--azul-profundo);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.auth-links a:hover {
+    color: var(--verde-quirurgico);
+}
+
+/* Divisor entre enlaces */
+.divider {
+    margin: 0 15px;
+    color: #ccc;
+}
+
+/* Alertas personalizadas */
+.alert-custom {
+    border-radius: 12px;
+    border: none;
+    margin-bottom: 25px;
+}
+
+/* Indicador de carga */
+.loading-spinner {
+    display: none;
+}
+
+.btn-auth.loading .loading-spinner {
+    display: inline-block;
+}
+
+.btn-auth.loading .btn-text {
+    display: none;
+}
+
+/* Información del sistema */
+.system-info {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+    color: #666;
+    font-size: 14px;
+}
+
+/* Estilos específicos para el registro */
+.password-strength {
+    margin-top: 10px;
+}
+
+.strength-meter {
+    height: 4px;
+    background-color: #e0e0e0;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.strength-fill {
+    height: 100%;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.strength-weak {
+    background-color: #dc3545;
+    width: 25%;
+}
+
+.strength-medium {
+    background-color: #ffc107;
+    width: 50%;
+}
+
+.strength-strong {
+    background-color: #28a745;
+    width: 75%;
+}
+
+.strength-very-strong {
+    background-color: #17a2b8;
+    width: 100%;
+}
+
+/* Modal de términos y condiciones */
+.modal-content {
+    border-radius: 15px;
+    border: none;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, var(--azul-profundo), var(--verde-quirurgico));
+    color: white;
+    border-radius: 15px 15px 0 0;
+}
+
+.modal-footer {
+    border-top: 1px solid #e0e0e0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .auth-card {
+        padding: 30px 20px;
+        margin: 10px;
+    }
+    
+    .auth-logo {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .auth-logo i {
+        font-size: 2rem;
+    }
+}
+
+/* Estados de error en campos */
+.form-control.is-invalid {
+    border-color: #dc3545;
+}
+
+.form-control.is-valid {
+    border-color: #28a745;
+}
+
+/* Animaciones suaves */
+.auth-card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilos para checkboxes personalizados */
+.form-check-input:checked {
+    background-color: var(--verde-quirurgico);
+    border-color: var(--verde-quirurgico);
+}
+
+.form-check-input:focus {
+    border-color: var(--verde-quirurgico);
+    box-shadow: 0 0 0 0.2rem rgba(47, 126, 121, 0.25);
+}

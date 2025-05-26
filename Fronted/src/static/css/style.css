@@ -42,6 +42,15 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
+.card-header,
+.bg-primary,
+.bg-info,
+.bg-warning,
+.bg-secondary {
+    background-color: #1B365D !important;
+    color: #fff !important;
+}
+
 /* Footer */
 footer {
     margin-top: auto;
