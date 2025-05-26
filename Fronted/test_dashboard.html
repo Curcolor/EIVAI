@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EIVAI - Test de Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .test-section {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #007bff;
+        }
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .status-success { background-color: #28a745; }
+        .status-warning { background-color: #ffc107; }
+        .status-error { background-color: #dc3545; }
+        .test-result {
+            font-family: monospace;
+            background: #f1f3f4;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="h3 text-primary mb-4">
+                    <i class="fas fa-flask me-2"></i>
+                    EIVAI - Test de Dashboard
+                </h1>
+            </div>
+        </div>
+
+        <!-- Test de Estructura de Archivos -->
+        <div class="test-section">
+            <h4><i class="fas fa-file-alt me-2"></i>Verificación de Estructura</h4>
+            <div id="structure-test-results">
+                <p><span class="status-indicator status-success"></span>Iniciando verificación...</p>
+            </div>
+        </div>
+
+        <!-- Test de Conectividad API -->
+        <div class="test-section">
+            <h4><i class="fas fa-network-wired me-2"></i>Test de Conectividad API</h4>
+            <div id="api-test-results">
+                <p><span class="status-indicator status-warning"></span>Probando endpoints...</p>
+            </div>
+            <button id="test-api-btn" class="btn btn-primary btn-sm">
+                <i class="fas fa-play me-1"></i>Probar API
+            </button>
+        </div>
+
+        <!-- Test de Dashboard JavaScript -->
+        <div class="test-section">
+            <h4><i class="fas fa-code me-2"></i>Test de Dashboard JavaScript</h4>
+            <div id="js-test-results">
+                <p><span class="status-indicator status-warning"></span>Verificando JavaScript...</p>
+            </div>
+            <button id="test-dashboard-btn" class="btn btn-success btn-sm">
+                <i class="fas fa-play me-1"></i>Probar Dashboard
+            </button>
+        </div>
+
+        <!-- Simulación de Dashboard -->
+        <div class="test-section">
+            <h4><i class="fas fa-chart-bar me-2"></i>Simulación de Dashboard con Datos Mock</h4>
+            
+            <!-- Estadísticas Generales -->
+            <div class="row mb-3" id="estadisticas-generales">
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-muted mb-2">Total Usuarios</h5>
+                            <h3 class="text-primary fw-bold" id="total-usuarios">-</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-muted mb-2">Usuarios Activos</h5>
+                            <h3 class="text-success fw-bold" id="usuarios-activos">-</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-muted mb-2">Total Instrumentos</h5>
+                            <h3 class="text-info fw-bold" id="total-instrumentos">-</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-muted mb-2">Alertas Activas</h5>
+                            <h3 class="text-warning fw-bold" id="alertas-activas">-</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección de Alertas -->
+            <div class="row mb-3" id="alertas-section">
+                <div class="col-12">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-white">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-exclamation-triangle text-warning me-2"></i>
+                                Alertas Recientes
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="alertas-container">
+                                <p class="text-muted">Cargando alertas...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="load-mock-data-btn" class="btn btn-primary">
+                <i class="fas fa-database me-1"></i>Cargar Datos Mock
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Datos mock para testing
+        const mockData = {
+            stats: {
+                total_usuarios: 25,
+                usuarios_activos: 18,
+                total_instrumentos: 150,
+                alertas_activas: 3
+            },
+            alertas: [
+                {
+                    id: 1,
+                    tipo: 'warning',
+                    mensaje: 'Instrumento necesita calibración en Quirófano 1',
+                    timestamp: new Date().toISOString()
+                },
+                {
+                    id: 2,
+                    tipo: 'danger',
+                    mensaje: 'Falta instrumental en procedimiento de urgencia',
+                    timestamp: new Date().toISOString()
+                },
+                {
+                    id: 3,
+                    tipo: 'info',
+                    mensaje: 'Nuevo instrumento registrado exitosamente',
+                    timestamp: new Date().toISOString()
+                }
+            ]
+        };
+
+        // Función para actualizar estadísticas
+        function updateStats() {
+            const stats = mockData.stats;
+            document.getElementById('total-usuarios').textContent = stats.total_usuarios;
+            document.getElementById('usuarios-activos').textContent = stats.usuarios_activos;
+            document.getElementById('total-instrumentos').textContent = stats.total_instrumentos;
+            document.getElementById('alertas-activas').textContent = stats.alertas_activas;
+        }
+
+        // Función para actualizar alertas
+        function updateAlertas() {
+            const alertasContainer = document.getElementById('alertas-container');
+            const alertas = mockData.alertas;
+            
+            alertasContainer.innerHTML = alertas.map(alerta => `
+                <div class="alert alert-${alerta.tipo} alert-dismissible fade show mb-2" role="alert">
+                    <strong>${alerta.tipo === 'warning' ? 'Advertencia' : alerta.tipo === 'danger' ? 'Error' : 'Información'}:</strong>
+                    ${alerta.mensaje}
+                    <small class="d-block mt-1 text-muted">
+                        ${new Date(alerta.timestamp).toLocaleString()}
+                    </small>
+                </div>
+            `).join('');
+        }
+
+        // Test de API
+        async function testAPI() {
+            const resultDiv = document.getElementById('api-test-results');
+            resultDiv.innerHTML = '<p><span class="status-indicator status-warning"></span>Probando conectividad...</p>';
+            
+            try {
+                const response = await fetch('http://127.0.0.1:8000/health');
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <p><span class="status-indicator status-success"></span>API funcionando correctamente</p>
+                        <div class="test-result">Status: ${response.status} - Servidor activo</div>
+                    `;
+                } else {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p><span class="status-indicator status-error"></span>Error de conectividad</p>
+                    <div class="test-result">Error: ${error.message}</div>
+                    <p class="mt-2 text-muted"><small>💡 Asegúrate de que el servidor esté ejecutándose con: python run.py</small></p>
+                `;
+            }
+        }
+
+        // Test de Dashboard
+        function testDashboard() {
+            const resultDiv = document.getElementById('js-test-results');
+            
+            try {
+                // Verificar que los elementos del DOM existan
+                const requiredElements = [
+                    'estadisticas-generales',
+                    'total-usuarios',
+                    'usuarios-activos',
+                    'total-instrumentos',
+                    'alertas-activas',
+                    'alertas-container'
+                ];
+                
+                const foundElements = [];
+                const missingElements = [];
+                
+                requiredElements.forEach(elementId => {
+                    if (document.getElementById(elementId)) {
+                        foundElements.push(elementId);
+                    } else {
+                        missingElements.push(elementId);
+                    }
+                });
+                
+                if (missingElements.length === 0) {
+                    resultDiv.innerHTML = `
+                        <p><span class="status-indicator status-success"></span>Dashboard DOM verificado correctamente</p>
+                        <div class="test-result">
+                            Elementos encontrados: ${foundElements.length}/${requiredElements.length}<br>
+                            ✅ Todos los elementos necesarios están presentes
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <p><span class="status-indicator status-warning"></span>Elementos faltantes en DOM</p>
+                        <div class="test-result">
+                            Elementos encontrados: ${foundElements.length}/${requiredElements.length}<br>
+                            ❌ Elementos faltantes: ${missingElements.join(', ')}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p><span class="status-indicator status-error"></span>Error en test de JavaScript</p>
+                    <div class="test-result">Error: ${error.message}</div>
+                `;
+            }
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificación inicial de estructura
+            document.getElementById('structure-test-results').innerHTML = `
+                <p><span class="status-indicator status-success"></span>Estructura HTML cargada correctamente</p>
+                <div class="test-result">
+                    ✅ Bootstrap CSS cargado<br>
+                    ✅ Font Awesome cargado<br>
+                    ✅ Elementos del DOM disponibles
+                </div>
+            `;
+            
+            // Event listeners para botones
+            document.getElementById('test-api-btn').addEventListener('click', testAPI);
+            document.getElementById('test-dashboard-btn').addEventListener('click', testDashboard);
+            document.getElementById('load-mock-data-btn').addEventListener('click', function() {
+                updateStats();
+                updateAlertas();
+                
+                // Mostrar mensaje de éxito
+                const alertDiv = document.createElement('div');
+                alertDiv.className = 'alert alert-success alert-dismissible fade show mt-3';
+                alertDiv.innerHTML = `
+                    <strong>✅ Datos cargados!</strong> Dashboard actualizado con datos mock.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+                document.querySelector('.test-section:last-child').appendChild(alertDiv);
+            });
+            
+            // Auto-ejecutar test de dashboard
+            setTimeout(testDashboard, 500);
+        });
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

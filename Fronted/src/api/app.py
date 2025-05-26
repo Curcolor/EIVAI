@@ -14,7 +14,7 @@ from .routes.conteos import router as conteos_router
 from .routes.alertas import router as alertas_router
 from .routes.sets import router as sets_router
 from .routes.dashboard import router as dashboard_router
-# from .routes.test_routes import test_router  # Temporalmente deshabilitado
+from .routes.test_routes import test_router  # Habilitado para pruebas
 # from .middlewares.auth_middleware import AuthMiddleware  # Ya no es necesario
 
 
@@ -26,9 +26,9 @@ def create_app() -> FastAPI:
         title=settings.APP_NAME,
         description=settings.APP_DESCRIPTION,
         version=settings.APP_VERSION,
-        debug=settings.DEBUG
-    )
-      # Configurar CORS
+        debug=settings.DEBUG    )
+    
+    # Configurar CORS
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.ALLOWED_HOSTS,
@@ -37,13 +37,14 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
     
-    # El middleware de autenticación ahora se maneja como dependencias en las rutas
-    
+    # El middleware de autenticación ahora se maneja como dependencias en las rutas    
     # Montar archivos estáticos
     app.mount("/static", StaticFiles(directory="src/static"), name="static")
     
     # Incluir rutas principales (templates)
-    app.include_router(main_router)    # Incluir rutas API
+    app.include_router(main_router)
+    
+    # Incluir rutas API
     app.include_router(usuarios_router)
     app.include_router(instrumentos_router)
     app.include_router(procedimientos_router)
@@ -51,7 +52,7 @@ def create_app() -> FastAPI:
     app.include_router(alertas_router)
     app.include_router(sets_router)
     app.include_router(dashboard_router)
-    # app.include_router(test_router)  # Rutas de prueba temporalmente deshabilitadas
+    app.include_router(test_router)  # Habilitado para pruebas
     
     return app
 

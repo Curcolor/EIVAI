@@ -688,7 +688,9 @@ class EIVAIDashboard {
             updateInterval: this.updateInterval,
             isLoading: this.isLoading,
             autoUpdateActive: this.autoUpdateTimer !== null
-        });    }
+        });
+    }
+}
 }
 
 // Inicializar dashboard global

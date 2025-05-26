@@ -1,0 +1,121 @@
+{
+  "Dashboard Stats": {
+    "status": "success",
+    "status_code": 200,
+    "data": {
+      "error": "",
+      "success": false,
+      "data": null
+    }
+  },
+  "Dashboard Completo": {
+    "status": "success",
+    "status_code": 200,
+    "data": {
+      "error": "",
+      "success": false,
+      "data": null
+    }
+  },
+  "Usuarios": {
+    "status": "success",
+    "status_code": 200,
+    "data": {
+      "success": true,
+      "data": [
+        {
+          "id": 1,
+          "nombre": "Usuario Test 1",
+          "activo": true
+        },
+        {
+          "id": 2,
+          "nombre": "Usuario Test 2",
+          "activo": true
+        }
+      ]
+    }
+  },
+  "Instrumentos": {
+    "status": "success",
+    "status_code": 200,
+    "data": {
+      "success": true,
+      "data": {
+        "total": 125,
+        "disponibles": 100,
+        "en_uso": 20,
+        "mantenimiento": 5
+      }
+    }
+  },
+  "Alertas": {
+    "status": "success",
+    "status_code": 200,
+    "data": {
+      "success": true,
+      "data": [
+        {
+          "id": 1,
+          "tipo": "critica",
+          "mensaje": "Instrumento requiere mantenimiento"
+        },
+        {
+          "id": 2,
+          "tipo": "info",
+          "mensaje": "Conteo completado"
+        }
+      ]
+    }
+  },
+  "Procedimientos": {
+    "status": "success",
+    "status_code": 200,
+    "data": {
+      "success": true,
+      "data": {
+        "total": 45,
+        "activos": 10,
+        "completados": 35
+      }
+    }
+  },
+  "Conteos": {
+    "status": "success",
+    "status_code": 200,
+    "data": {
+      "success": true,
+      "data": [
+        {
+          "id": 1,
+          "procedimiento": "Cirugía 1",
+          "estado": "completado"
+        },
+        {
+          "id": 2,
+          "procedimiento": "Cirugía 2",
+          "estado": "pendiente"
+        }
+      ]
+    }
+  },
+  "Sets": {
+    "status": "success",
+    "status_code": 200,
+    "data": {
+      "success": true,
+      "data": [
+        {
+          "id": 1,
+          "nombre": "Set Básico",
+          "categoria": "General"
+        },
+        {
+          "id": 2,
+          "nombre": "Set Cardiología",
+          "categoria": "Especializado"
+        }
+      ]
+    }
+  }
+}
