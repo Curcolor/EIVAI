@@ -60,7 +60,7 @@
     border-top-left-radius: 18px;
 }
 .message.sent .message-content {
-    background: var(--cian);
+    background: #1B365D;
     color: #fff;
     align-self: flex-end;
     border-bottom-right-radius: 6px;
