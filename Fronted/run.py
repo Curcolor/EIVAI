@@ -2,7 +2,7 @@
 Archivo principal para ejecutar el servidor FastAPI
 """
 import uvicorn
-from src.app import create_app
+from src.api.app import create_app
 
 app = create_app()
 

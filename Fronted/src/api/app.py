@@ -5,8 +5,8 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
-from .config import settings
-from .routes import main_router
+from ..config.config import settings
+from .routes.routes import main_router
 
 
 def create_app() -> FastAPI:
