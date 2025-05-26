@@ -145,6 +145,102 @@ async def contact(request: Request):
     )
 
 
+@main_router.post("/contact", response_class=HTMLResponse)
+async def contact_submit(
+    request: Request,
+    firstName: str = Form(...),
+    lastName: str = Form(...),
+    email: str = Form(...),
+    subject: str = Form(...),
+    message: str = Form(...),
+    privacy: str = Form(None)
+):
+    """
+    Procesar envío de formulario de contacto
+    
+    Descripción:
+        Procesa las consultas y solicitudes de soporte enviadas a través del
+        formulario de contacto. Valida los datos y simula el envío de email.
+        
+    Parámetros:
+        firstName (str): Nombre del usuario
+        lastName (str): Apellido del usuario
+        email (str): Correo electrónico de contacto
+        subject (str): Asunto de la consulta
+        message (str): Mensaje detallado
+        privacy (str): Aceptación de términos de privacidad
+        
+    Retorna:
+        HTMLResponse: Página de contacto con mensaje de confirmación
+        
+    Validaciones:
+        - Todos los campos son obligatorios
+        - Email debe tener formato válido
+        - Mensaje debe tener al menos 10 caracteres
+        - Términos de privacidad deben ser aceptados
+    """
+    user = get_current_user(request)
+    errors = []
+    
+    # Validaciones del servidor
+    if len(message.strip()) < 10:
+        errors.append("El mensaje debe tener al menos 10 caracteres")
+    
+    if not privacy:
+        errors.append("Debe aceptar los términos y condiciones de privacidad")
+    
+    # Validación básica de email
+    import re
+    email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if not re.match(email_pattern, email):
+        errors.append("El formato del correo electrónico no es válido")
+    
+    if errors:
+        return templates.TemplateResponse(
+            "contact.html",
+            {
+                "request": request,
+                "title": "Contacto",
+                "user": user,
+                "errors": errors,
+                "form_data": {
+                    "firstName": firstName,
+                    "lastName": lastName,
+                    "email": email,
+                    "subject": subject,
+                    "message": message
+                }
+            }
+        )
+    
+    # Simular procesamiento del mensaje de contacto
+    # En producción, aquí se enviaría un email real
+    contact_data = {
+        "timestamp": datetime.now(),
+        "name": f"{firstName} {lastName}",
+        "email": email,
+        "subject": subject,
+        "message": message,
+        "user_authenticated": user is not None
+    }
+    
+    # Log del contacto (en producción guardar en base de datos)
+    print(f"[CONTACTO] Nuevo mensaje de {contact_data['name']} ({contact_data['email']})")
+    print(f"[CONTACTO] Asunto: {subject}")
+    print(f"[CONTACTO] Mensaje: {message[:100]}...")
+    
+    return templates.TemplateResponse(
+        "contact.html",
+        {
+            "request": request,
+            "title": "Contacto",
+            "user": user,
+            "message": "¡Gracias por contactarnos! Hemos recibido tu mensaje y nos pondremos en contacto contigo pronto.",
+            "success": True
+        }
+    )
+
+
 @main_router.get("/dashboard", response_class=HTMLResponse)
 async def dashboard(request: Request):
     """
