@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  yolo-detection-ms:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: yolo-detection-ms
+    ports:
+      - "8002:8002"
+    environment:
+      - DEBUG=false
+      - HOST=0.0.0.0
+      - PORT=8002
+      - CONFIDENCE_THRESHOLD=0.5
+      - IOU_THRESHOLD=0.45
+      - MAX_FILE_SIZE=10485760
+    volumes:
+      # Montar directorio de modelos para persistencia
+      - ./models:/app/models
+      - ./temp_uploads:/app/temp_uploads
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/api/v1/yolo/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - yolo-network
+
+  # Servicio opcional de nginx para proxy reverso
+  nginx:
+    image: nginx:alpine
+    container_name: yolo-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - yolo-detection-ms
+    restart: unless-stopped
+    networks:
+      - yolo-network
+    profiles:
+      - with-nginx
+
+networks:
+  yolo-network:
+    driver: bridge
+
+# Para usar con nginx, ejecutar:
+# docker-compose --profile with-nginx up
