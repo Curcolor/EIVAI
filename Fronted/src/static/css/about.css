@@ -1,0 +1,126 @@
+/* 
+ * EIVAI - Estilos específicos para la página "Acerca de"
+ * Archivo: about.css
+ * 
+ * Descripción:
+ *   Estilos específicos para la página de información del sistema EIVAI.
+ *   Incluye estilos para tarjetas informativas y diseño de contenido.
+ *
+ * Autor: Equipo EIVAI
+ * Fecha: 2025
+ * Versión: 2.1.0
+ */
+
+/* Variables de color del tema quirúrgico */
+:root {
+    --azul-profundo: #1B365D;      /* Color principal azul médico */
+    --verde-quirurgico: #2F7E79;   /* Verde quirúrgico institucional */
+    --gris-acero: #BFCAD3;         /* Gris acero para elementos secundarios */
+    --cian: #1BCDB0;               /* Cian para acentos y destacados */
+}
+
+/* Fondo específico para la página about */
+body {
+    background: linear-gradient(135deg, #f8fafc 0%, #e3f2f1 50%, #f1f8f6 100%);
+    min-height: 100vh;
+}
+
+/* Estilos para las tarjetas de información */
+.card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.98) 100%);
+    border: 1px solid rgba(27, 54, 93, 0.1);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(27, 54, 93, 0.15);
+    border-color: rgba(47, 126, 121, 0.3);
+}
+
+.card-title {
+    color: var(--azul-profundo);
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.card-text {
+    color: #4a5568;
+    line-height: 1.6;
+}
+
+/* Estilos para listas */
+.list-unstyled li {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(27, 54, 93, 0.1);
+    color: #4a5568;
+}
+
+.list-unstyled li:last-child {
+    border-bottom: none;
+}
+
+.list-unstyled li::before {
+    content: "✓";
+    color: var(--verde-quirurgico);
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* Título principal */
+h1 {
+    color: var(--azul-profundo);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h1::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--azul-profundo) 0%, var(--verde-quirurgico) 100%);
+    margin: 15px auto;
+    border-radius: 2px;
+}
+
+/* Información de contacto */
+.contact-info {
+    background: linear-gradient(135deg, rgba(27, 54, 93, 0.05) 0%, rgba(47, 126, 121, 0.08) 100%);
+    border-radius: 12px;
+    padding: 25px;
+    border-left: 4px solid var(--verde-quirurgico);
+}
+
+.contact-info h5 {
+    color: var(--azul-profundo);
+    margin-bottom: 15px;
+}
+
+.contact-info p {
+    margin-bottom: 8px;
+    color: #4a5568;
+}
+
+.contact-info strong {
+    color: var(--azul-profundo);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .card {
+        margin-bottom: 20px;
+    }
+    
+    .contact-info {
+        padding: 20px;
+    }
+}
